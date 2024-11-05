@@ -7,6 +7,8 @@ VietQR serves as a unified brand identity for QR-based payments and transfers, s
 ## Sample
 
 ```go
+package main
+
 import (
 	"github.com/sunary/vietqr"
 )
@@ -30,3 +32,5 @@ func main() {
 	println("message", info.Message)
 }
 ```
+
+Run online: [go.dev/play](https://go.dev/play/p/g9gCWmI9iRl)

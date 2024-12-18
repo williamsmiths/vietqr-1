@@ -21,7 +21,7 @@ func Test_hashCrc(t *testing.T) {
 			want: "6646",
 		},
 		{
-			name: "vietqr data",
+			name: "VIETQR data",
 			args: args{
 				"00020101021238490010A000000727011900069704160105135790208QRIBFTTA530370454061200005802VN6304",
 			},

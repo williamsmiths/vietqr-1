@@ -10,14 +10,19 @@ func Decode(s string) (*TransferInfo, error) {
 		return nil, errors.New("invalid CRC")
 	}
 
-	t := TransferInfo{}
-	t.parseRootContent(s[:len(s)-paddingCrc])
-	t.BankCode = revBankBin[t.bankBin]
-	if t.BankCode == "" || t.BankNo == "" {
-		return nil, errors.New("invalid qr code")
+	ti := TransferInfo{}
+	ti.parseRootContent(s[:len(s)-paddingCrc])
+	if ti.merchantID != "" {
+		return &ti, nil
 	}
 
-	return &t, nil
+	// handle VIETQR guid, require BankCode and BankNo
+	ti.BankCode = revBankBin[ti.bankBin]
+	if ti.BankCode == "" || ti.BankNo == "" {
+		return nil, errors.New("invalid VIETQR code")
+	}
+
+	return &ti, nil
 }
 
 func (t *TransferInfo) parseRootContent(s string) {
@@ -25,8 +30,7 @@ func (t *TransferInfo) parseRootContent(s string) {
 	switch id {
 	case _VERSION:
 	case _INIT_METHOD:
-	case _VNPAYQR:
-	case _VIETQR:
+	case _VNPAYQR, _VIETQR:
 		t.parseProviderInfo(value)
 	case _CATEGORY:
 	case _CURRENCY:
@@ -54,7 +58,9 @@ func (t *TransferInfo) parseProviderInfo(s string) {
 	case _PROVIDER_GUID:
 		t.guid = value
 	case _PROVIDER_DATA:
-		if t.guid == _PROVIDER_VIETQR_GUID {
+		if t.guid == _PROVIDER_VNPAY_GUID {
+			t.merchantID = value
+		} else if t.guid == _PROVIDER_VIETQR_GUID {
 			t.parseVietQRConsumer(value)
 		}
 	case _PROVIDER_SERVICE:

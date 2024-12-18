@@ -21,16 +21,22 @@ func vietQRContent(ti TransferInfo) string {
 		amount = strconv.Itoa(int(ti.Amount))
 	}
 
-	bin := bankBin[ti.BankCode]
-	if bin == "" {
-		log.Fatalf("unkown bank code: %s", ti.BankCode)
+	var guid, providerDataContent string
+	if ti.merchantID == "" { // default
+		bin := bankBin[ti.BankCode]
+		if bin == "" {
+			log.Fatalf("unkown bank code: %s", ti.BankCode)
+		}
+
+		bankBin := genFieldData(_BANK_BIN, bin)
+		bankNumber := genFieldData(_BANK_NUMBER, ti.BankNo)
+		providerDataContent = bankBin + bankNumber
+		guid = genFieldData(_PROVIDER_GUID, _PROVIDER_VIETQR_GUID)
+	} else {
+		providerDataContent = ti.merchantID
+		guid = genFieldData(_PROVIDER_GUID, _PROVIDER_VNPAY_GUID)
 	}
 
-	bankBin := genFieldData(_BANK_BIN, bin)
-	bankNumber := genFieldData(_BANK_NUMBER, ti.BankNo)
-	providerDataContent := bankBin + bankNumber
-
-	guid := genFieldData(_PROVIDER_GUID, _PROVIDER_VIETQR_GUID) // vietqr only
 	provider := genFieldData(_PROVIDER_DATA, providerDataContent)
 	service := genFieldData(_PROVIDER_SERVICE, _BY_ACCOUNT_NUMBER)
 	providerData := genFieldData(_VIETQR, guid+provider+service)

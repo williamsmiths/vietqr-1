@@ -24,6 +24,15 @@ func TestEncode(t *testing.T) {
 			want: "00020101021138540010A00000072701240006546034011009055559990208QRIBFTTA53037045802VN6304B2A0",
 		},
 		{
+			name: "VNPAY",
+			args: args{
+				TransferInfo{
+					merchantID: "VNP-123456",
+				},
+			},
+			want: "00020101021138400010A0000007750110VNP-1234560208QRIBFTTA53037045802VN6304E56C",
+		},
+		{
 			name: "with amount",
 			args: args{
 				TransferInfo{
@@ -75,7 +84,8 @@ func TestDecode(t *testing.T) {
 		if t1 == nil || t2 == nil {
 			return false
 		}
-		return t1.BankCode == t2.BankCode &&
+		return t1.merchantID == t2.merchantID &&
+			t1.BankCode == t2.BankCode &&
 			t1.BankNo == t2.BankNo &&
 			t1.Amount == t2.Amount &&
 			t1.Message == t2.Message
@@ -97,6 +107,16 @@ func TestDecode(t *testing.T) {
 			},
 			want:    nil,
 			wantErr: true,
+		},
+		{
+			name: "guid VNPAY",
+			args: args{
+				"00020101021138400010A0000007750110VNP-1234560208QRIBFTTA53037045802VN6304E56C",
+			},
+			want: &TransferInfo{
+				merchantID: "VNP-123456",
+			},
+			wantErr: false,
 		},
 		{
 			name: "missing crc",

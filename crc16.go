@@ -54,6 +54,8 @@ type Hash16 interface {
 	Sum16() uint16
 }
 
+var _ hash.Hash = &digest{}
+
 type digest struct {
 	algo  Params
 	table [256]uint16

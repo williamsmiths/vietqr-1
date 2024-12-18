@@ -3,15 +3,14 @@ package vietqr
 import (
 	"log"
 	"strconv"
-	"strings"
 )
 
 func Encode(ti TransferInfo) string {
-	content := vietQRContent(ti)
+	content := qrContent(ti)
 	return content + hashCrc(content)
 }
 
-func vietQRContent(ti TransferInfo) string {
+func qrContent(ti TransferInfo) string {
 	version := genFieldData(_VERSION, "01")
 	initMethod := genFieldData(_INIT_METHOD, "11")
 	amount := ""
@@ -62,35 +61,4 @@ func vietQRContent(ti TransferInfo) string {
 
 	return joinString(version, initMethod, providerData, category, currency, amountStr, tipAndFeeType, tipAndFeeAmount, tipAndFeePercent,
 		nation, merchantName, city, zipCode, additionalData, EVMCoContent, unreservedContent, _CRC, "04")
-}
-
-func genFieldData(id, value string) string {
-	if len(id) != 2 || len(value) <= 0 {
-		return ""
-	}
-
-	return joinString(id, paddingNumber(len(value), 2), value)
-}
-
-func joinString(ss ...string) string {
-	return strings.Join(ss, "")
-}
-
-func paddingNumber(n, fl int) string {
-	return paddingString(strconv.Itoa(n), fl)
-}
-
-func paddingString(s string, fl int) string {
-	if fl <= 0 {
-		return s
-	}
-
-	if len(s) >= fl {
-		return s[len(s)-fl:]
-	}
-
-	for len(s) < fl {
-		s = "0" + s
-	}
-	return s
 }

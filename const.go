@@ -12,7 +12,7 @@ const (
 	_TIP_AND_FEE_TYPE    = "55"
 	_TIP_AND_FEE_AMOUNT  = "56"
 	_TIP_AND_FEE_PERCENT = "57"
-	_NATION              = "58" // defined by ISO 3166-1 alpha 2, Vietnam is VN
+	_NATION              = "58" // defined by ISO 3166-1 alpha_2, Vietnam is VN
 	_MERCHANT_NAME       = "59"
 	_CITY                = "60"
 	_ZIP_CODE            = "61"

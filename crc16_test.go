@@ -1,12 +1,28 @@
 package vietqr
 
 import (
+	b64 "encoding/base64"
 	"testing"
 )
 
-func Test_hashCrc(t *testing.T) {
+func Test_Crc16(t *testing.T) {
+	equalBytesSliceFn := func(b1, b2 []byte) bool {
+		if len(b1) != len(b2) {
+			return false
+		}
+
+		for i := 0; i < len(b1); i++ {
+			if b1[i] != b2[i] {
+				return false
+			}
+		}
+		return true
+	}
+
+	sameText := "hello world"
 	type args struct {
-		s string
+		params CrcParams
+		s      string
 	}
 	tests := []struct {
 		name string
@@ -14,78 +30,78 @@ func Test_hashCrc(t *testing.T) {
 		want string
 	}{
 		{
-			name: "text data",
+			name: "params CRC16_ARC",
 			args: args{
-				"hello word",
+				CRC16_ARC,
+				sameText,
 			},
-			want: "6646",
+			want: "OcE=",
 		},
 		{
-			name: "VIETQR data",
+			name: "params CRC16_AUG_CCITT",
 			args: args{
-				"00020101021238490010A000000727011900069704160105135790208QRIBFTTA530370454061200005802VN6304",
+				CRC16_AUG_CCITT,
+				sameText,
 			},
-			want: "9A71",
+			want: "E+g=",
 		},
 		{
-			name: "empty data",
+			name: "params CRC16_BUYPASS",
 			args: args{
-				"",
+				CRC16_BUYPASS,
+				sameText,
 			},
-			want: "FFFF",
+			want: "V8w=",
+		},
+		{
+			name: "params CRC16_CCITT_FALSE",
+			args: args{
+				CRC16_CCITT_FALSE,
+				sameText,
+			},
+			want: "7+s=",
+		},
+		{
+			name: "params CRC16_CDMA2000",
+			args: args{
+				CRC16_CDMA2000,
+				sameText,
+			},
+			want: "+fE=",
+		},
+		{
+			name: "params CRC16_DDS_110",
+			args: args{
+				CRC16_DDS_110,
+				sameText,
+			},
+			want: "lxs=",
+		},
+		{
+			name: "params CRC16_DECT_R",
+			args: args{
+				CRC16_DECT_R,
+				sameText,
+			},
+			want: "Chc=",
+		},
+		{
+			name: "params CRC16_DECT_X",
+			args: args{
+				CRC16_DECT_X,
+				sameText,
+			},
+			want: "ChY=",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := hashCrc(tt.args.s); got != tt.want {
-				t.Errorf("hashCrc() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_validCrcContent(t *testing.T) {
-	type args struct {
-		s string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "invalid data",
-			args: args{
-				"hello word nocrc",
-			},
-			want: false,
-		},
-		{
-			name: "valid data",
-			args: args{
-				"hello word6646",
-			},
-			want: true,
-		},
-		{
-			name: "valid data lowercase",
-			args: args{
-				"hello word lowercasecade",
-			},
-			want: true,
-		},
-		{
-			name: "empty valid data",
-			args: args{
-				"FFFF",
-			},
-			want: true,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := validCrcContent(tt.args.s); got != tt.want {
-				t.Errorf("validCrcContent() = %v, want %v", got, tt.want)
+			h := NewCrc16(tt.args.params)
+			h.Write([]byte(tt.args.s))
+			got := h.Sum(nil)
+			want, _ := b64.StdEncoding.DecodeString(tt.want)
+			if !equalBytesSliceFn(got, want) {
+				t.Errorf("b64-Crc16() = %v, want %v", b64.StdEncoding.EncodeToString(got), tt.want)
 			}
 		})
 	}

@@ -101,11 +101,3 @@ func (t *TransferInfo) parseAdditionalData(s string) {
 		t.parseAdditionalData(nextValue)
 	}
 }
-
-func slideContent(s string) (id string, value string, nextContent string) {
-	id = s[:2]
-	length, _ := strconv.Atoi(s[2:4])
-	value = s[4 : 4+length]
-	nextContent = s[4+length:]
-	return
-}

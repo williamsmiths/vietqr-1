@@ -23,11 +23,15 @@ const (
 	IBK_HN                  = "IBK_HN"
 	INDOVINA_BANK           = "INDOVINA_BANK"
 	KASIKORN_BANK           = "KASIKORN_BANK"
+	KEB_HANA_BANK_HCM       = "KEB_HANA_BANK_HCM"
+	KEB_HANA_BANK_HN        = "KEB_HANA_BANK_HN"
 	KIENLONG_BANK           = "KIENLONG_BANK"
 	KOOKMIN_BANK_HCM        = "KOOKMIN_BANK_HCM"
 	KOOKMIN_BANK_HN         = "KOOKMIN_BANK_HN"
 	LIENVIETPOST_BANK       = "LIENVIETPOST_BANK"
 	MBBANK                  = "MBBANK"
+	MB_SHINSEI              = "MB_SHINSEI"
+	MIRAE_ASSET             = "MIRAE_ASSET"
 	MSB                     = "MSB"
 	NAM_A_BANK              = "NAM_A_BANK"
 	NCB                     = "NCB"
@@ -43,15 +47,18 @@ const (
 	SEA_BANK                = "SEA_BANK"
 	SHB                     = "SHB"
 	SHINHAN_BANK            = "SHINHAN_BANK"
+	SINOPAC_BANK_HCM        = "SINOPAC_BANK_HCM"
 	STANDARD_CHARTERED_BANK = "STANDARD_CHARTERED_BANK"
 	TECHCOMBANK             = "TECHCOMBANK"
 	TIMO                    = "TIMO"
+	TNEX                    = "TNEX"
 	TPBANK                  = "TPBANK"
 	UBANK                   = "UBANK"
 	UNITED_OVERSEAS_BANK    = "UNITED_OVERSEAS_BANK"
 	VIB                     = "VIB"
 	VIET_A_BANK             = "VIET_A_BANK"
 	VIET_BANK               = "VIET_BANK"
+	VIET_CREDIT             = "VIET_CREDIT" // CFC
 	VIETCOMBANK             = "VIETCOMBANK"
 	VIETINBANK              = "VIETINBANK"
 	VPBANK                  = "VPBANK"
@@ -59,63 +66,71 @@ const (
 	WOORI_BANK              = "WOORI_BANK"
 )
 
+// follow latest data at: https://www.sbv.gov.vn/webcenter/portal/vi/menu/trangchu/ttvnq/htmtcqht
 var bankBin = map[string]string{
-	ABBANK:                  "970425",
-	ACB:                     "970416",
-	AGRIBANK:                "970405",
-	BAC_A_BANK:              "970409",
-	BAOVIET_BANK:            "970438",
-	BANVIET:                 "970454",
-	BIDV:                    "970418",
-	CAKE:                    "546034",
-	CBBANK:                  "970444",
-	CIMB:                    "422589",
-	COOP_BANK:               "970446",
-	DBS_BANK:                "796500",
-	DONG_A_BANK:             "970406",
-	EXIMBANK:                "970431",
-	GPBANK:                  "970408",
-	HDBANK:                  "970437",
-	HONGLEONG_BANK:          "970442",
 	HSBC:                    "458761",
-	IBK_HCM:                 "970456",
-	IBK_HN:                  "970455",
-	INDOVINA_BANK:           "970434",
-	KASIKORN_BANK:           "668888",
-	KIENLONG_BANK:           "970452",
-	KOOKMIN_BANK_HCM:        "970463",
-	KOOKMIN_BANK_HN:         "970462",
-	LIENVIETPOST_BANK:       "970449",
-	MBBANK:                  "970422",
-	MSB:                     "970426",
-	NAM_A_BANK:              "970428",
-	NCB:                     "970419",
-	NONGHYUP_BANK_HN:        "801011",
-	OCB:                     "970448",
-	OCEANBANK:               "970414",
-	PGBANK:                  "970430",
-	PUBLIC_BANK:             "970439",
-	PVCOM_BANK:              "970412",
-	SACOMBANK:               "970403",
-	SAIGONBANK:              "970400",
-	SCB:                     "970429",
-	SEA_BANK:                "970440",
-	SHB:                     "970443",
-	SHINHAN_BANK:            "970424",
-	STANDARD_CHARTERED_BANK: "970410",
-	TECHCOMBANK:             "970407",
-	TIMO:                    "963388",
-	TPBANK:                  "970423",
+	CAKE:                    "546034",
 	UBANK:                   "546035",
-	UNITED_OVERSEAS_BANK:    "970458",
-	VIB:                     "970441",
-	VIET_A_BANK:             "970427",
-	VIET_BANK:               "970433",
-	VIETCOMBANK:             "970436",
+	KASIKORN_BANK:           "668888",
+	DBS_BANK:                "796500",
+	NONGHYUP_BANK_HN:        "801011",
+	TIMO:                    "963388",
+	SAIGONBANK:              "970400",
+	SACOMBANK:               "970403",
+	AGRIBANK:                "970405",
+	DONG_A_BANK:             "970406",
+	TECHCOMBANK:             "970407",
+	GPBANK:                  "970408",
+	BAC_A_BANK:              "970409",
+	STANDARD_CHARTERED_BANK: "970410",
+	PVCOM_BANK:              "970412",
+	OCEANBANK:               "970414",
 	VIETINBANK:              "970415",
-	VPBANK:                  "970432",
+	ACB:                     "970416",
+	BIDV:                    "970418",
+	NCB:                     "970419",
 	VRB:                     "970421",
+	MBBANK:                  "970422",
+	TPBANK:                  "970423",
+	SHINHAN_BANK:            "970424",
+	ABBANK:                  "970425",
+	MSB:                     "970426",
+	VIET_A_BANK:             "970427",
+	NAM_A_BANK:              "970428",
+	SCB:                     "970429",
+	PGBANK:                  "970430",
+	EXIMBANK:                "970431",
+	VPBANK:                  "970432",
+	VIET_BANK:               "970433",
+	INDOVINA_BANK:           "970434",
+	VIETCOMBANK:             "970436",
+	HDBANK:                  "970437",
+	BAOVIET_BANK:            "970438",
+	PUBLIC_BANK:             "970439",
+	SEA_BANK:                "970440",
+	VIB:                     "970441",
+	HONGLEONG_BANK:          "970442",
+	SHB:                     "970443",
+	CBBANK:                  "970444",
+	COOP_BANK:               "970446",
+	OCB:                     "970448",
+	LIENVIETPOST_BANK:       "970449",
+	KIENLONG_BANK:           "970452",
+	BANVIET:                 "970454",
+	IBK_HN:                  "970455",
+	IBK_HCM:                 "970456",
 	WOORI_BANK:              "970457",
+	UNITED_OVERSEAS_BANK:    "970458",
+	CIMB:                    "970459", // 422589
+	VIET_CREDIT:             "970460",
+	KOOKMIN_BANK_HN:         "970462",
+	KOOKMIN_BANK_HCM:        "970463",
+	TNEX:                    "970464",
+	SINOPAC_BANK_HCM:        "970465",
+	KEB_HANA_BANK_HCM:       "970466",
+	KEB_HANA_BANK_HN:        "970467",
+	MIRAE_ASSET:             "970468",
+	MB_SHINSEI:              "970470",
 }
 
 var revBankBin = map[string]string{
@@ -141,11 +156,15 @@ var revBankBin = map[string]string{
 	bankBin[IBK_HN]:                  IBK_HN,
 	bankBin[INDOVINA_BANK]:           INDOVINA_BANK,
 	bankBin[KASIKORN_BANK]:           KASIKORN_BANK,
+	bankBin[KEB_HANA_BANK_HCM]:       KEB_HANA_BANK_HCM,
+	bankBin[KEB_HANA_BANK_HN]:        KEB_HANA_BANK_HN,
 	bankBin[KIENLONG_BANK]:           KIENLONG_BANK,
 	bankBin[KOOKMIN_BANK_HCM]:        KOOKMIN_BANK_HCM,
 	bankBin[KOOKMIN_BANK_HN]:         KOOKMIN_BANK_HN,
 	bankBin[LIENVIETPOST_BANK]:       LIENVIETPOST_BANK,
 	bankBin[MBBANK]:                  MBBANK,
+	bankBin[MB_SHINSEI]:              MB_SHINSEI,
+	bankBin[MIRAE_ASSET]:             MIRAE_ASSET,
 	bankBin[MSB]:                     MSB,
 	bankBin[NAM_A_BANK]:              NAM_A_BANK,
 	bankBin[NCB]:                     NCB,
@@ -161,15 +180,18 @@ var revBankBin = map[string]string{
 	bankBin[SEA_BANK]:                SEA_BANK,
 	bankBin[SHB]:                     SHB,
 	bankBin[SHINHAN_BANK]:            SHINHAN_BANK,
+	bankBin[SINOPAC_BANK_HCM]:        SINOPAC_BANK_HCM,
 	bankBin[STANDARD_CHARTERED_BANK]: STANDARD_CHARTERED_BANK,
 	bankBin[TECHCOMBANK]:             TECHCOMBANK,
 	bankBin[TIMO]:                    TIMO,
+	bankBin[TNEX]:                    TNEX,
 	bankBin[TPBANK]:                  TPBANK,
 	bankBin[UBANK]:                   UBANK,
 	bankBin[UNITED_OVERSEAS_BANK]:    UNITED_OVERSEAS_BANK,
 	bankBin[VIB]:                     VIB,
 	bankBin[VIET_A_BANK]:             VIET_A_BANK,
 	bankBin[VIET_BANK]:               VIET_BANK,
+	bankBin[VIET_CREDIT]:             VIET_CREDIT,
 	bankBin[VIETCOMBANK]:             VIETCOMBANK,
 	bankBin[VIETINBANK]:              VIETINBANK,
 	bankBin[VPBANK]:                  VPBANK,

@@ -25,7 +25,7 @@ func vietQRContent(ti TransferInfo) string {
 	if ti.merchantID == "" { // default
 		bin := bankBin[ti.BankCode]
 		if bin == "" {
-			log.Fatalf("unkown bank code: %s", ti.BankCode)
+			log.Fatalf("unknown bank code: %s", ti.BankCode)
 		}
 
 		bankBin := genFieldData(_BANK_BIN, bin)

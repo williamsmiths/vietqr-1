@@ -1,3 +1,6 @@
+# Ignore secrets and local configs
+scripts/secret.txt
+scripts/*.local
 # Binaries for programs and plugins
 *.exe
 *.exe~

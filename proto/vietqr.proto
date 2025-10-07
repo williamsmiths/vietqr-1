@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package vietqr;
+
+option go_package = "github.com/sunary/vietqr/proto";
+
+// Service định nghĩa các phương thức gRPC cho VietQR
+service VietQRService {
+  // Encode tạo mã QR từ thông tin chuyển khoản
+  rpc Encode(EncodeRequest) returns (EncodeResponse);
+  
+  // Decode giải mã thông tin từ mã QR
+  rpc Decode(DecodeRequest) returns (DecodeResponse);
+  
+  // GetBankList lấy danh sách các ngân hàng hỗ trợ
+  rpc GetBankList(GetBankListRequest) returns (GetBankListResponse);
+}
+
+// EncodeRequest chứa thông tin để tạo mã QR
+message EncodeRequest {
+  string bank_code = 1;    // Mã ngân hàng (ví dụ: TECHCOMBANK, VIETCOMBANK)
+  string bank_no = 2;      // Số tài khoản
+  int64 amount = 3;        // Số tiền (optional, 0 nếu không có)
+  string message = 4;      // Nội dung chuyển khoản (optional)
+}
+
+// EncodeResponse trả về mã QR đã được encode
+message EncodeResponse {
+  string qr_code = 1;      // Chuỗi mã QR
+  bool success = 2;        // Trạng thái thành công
+  string error = 3;        // Thông báo lỗi (nếu có)
+}
+
+// DecodeRequest chứa mã QR cần giải mã
+message DecodeRequest {
+  string qr_code = 1;      // Chuỗi mã QR cần decode
+}
+
+// DecodeResponse trả về thông tin đã giải mã
+message DecodeResponse {
+  string bank_code = 1;    // Mã ngân hàng
+  string bank_no = 2;      // Số tài khoản
+  int64 amount = 3;        // Số tiền
+  string message = 4;      // Nội dung chuyển khoản
+  bool success = 5;        // Trạng thái thành công
+  string error = 6;        // Thông báo lỗi (nếu có)
+}
+
+// GetBankListRequest yêu cầu lấy danh sách ngân hàng
+message GetBankListRequest {}
+
+// BankInfo chứa thông tin một ngân hàng
+message BankInfo {
+  string code = 1;         // Mã ngân hàng
+  string name = 2;         // Tên ngân hàng
+  string bin = 3;          // BIN của ngân hàng
+}
+
+// GetBankListResponse trả về danh sách ngân hàng
+message GetBankListResponse {
+  repeated BankInfo banks = 1;
+  bool success = 2;
+  string error = 3;
+}
+

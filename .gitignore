@@ -1,12 +1,49 @@
-bin/*
-dist/*
-vendor/
-tags
-.DS_Store
-*.orig
-__debug_bin
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Editor
-*.swp
-.idea/
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# Build output
+bin/
+dist/
+
+# Generated protobuf files
+proto/*.pb.go
+proto/*_grpc.pb.go
+
+# IDE
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# OS
+Thumbs.db

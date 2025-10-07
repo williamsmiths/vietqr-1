@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+bin/
+
+# Proto generated files (sẽ được generate lại trong build)
+proto/*.pb.go
+
+# Test files
+*_test.go
+
+# Documentation
+*.md
+!README.md
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Misc
+.DS_Store
+tmp/
+temp/
+*.log

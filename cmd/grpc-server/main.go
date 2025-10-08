@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/sunary/vietqr"
 	pb "github.com/sunary/vietqr/proto"
@@ -105,6 +106,19 @@ func (s *server) GetBankList(ctx context.Context, req *pb.GetBankListRequest) (*
 	}, nil
 }
 
+// HealthCheck kiểm tra trạng thái server
+func (s *server) HealthCheck(ctx context.Context, req *pb.HealthCheckRequest) (*pb.HealthCheckResponse, error) {
+	log.Println("HealthCheck request")
+
+	return &pb.HealthCheckResponse{
+		Healthy:   true,
+		Status:    "ok",
+		Message:   "VietQR gRPC Server đang hoạt động bình thường",
+		Timestamp: time.Now().Unix(),
+		Version:   "1.0.0",
+	}, nil
+}
+
 func main() {
 	// Lấy port từ biến môi trường, mặc định là 9090
 	port := os.Getenv("GRPC_PORT")
@@ -113,7 +127,7 @@ func main() {
 	}
 
 	// Tạo listener
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
+	lis, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%s", port))
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}

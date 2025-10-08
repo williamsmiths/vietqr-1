@@ -62,5 +62,19 @@ func main() {
 		fmt.Printf("  - %s (%s)\n", bank.Name, bank.Code)
 	}
 
+	// Test Health Check
+	fmt.Println("=== Test Health Check ===")
+	healthResp, err := client.HealthCheck(ctx, &pb.HealthCheckRequest{})
+	if err != nil {
+		fmt.Printf("❌ Health check failed: %v\n", err)
+	} else {
+		fmt.Printf("✅ Health check passed\n")
+		fmt.Printf("   - Healthy: %v\n", healthResp.Healthy)
+		fmt.Printf("   - Status: %s\n", healthResp.Status)
+		fmt.Printf("   - Message: %s\n", healthResp.Message)
+		fmt.Printf("   - Version: %s\n", healthResp.Version)
+		fmt.Printf("   - Timestamp: %d\n", healthResp.Timestamp)
+	}
+
 	fmt.Println("\n✅ All tests passed!")
 }

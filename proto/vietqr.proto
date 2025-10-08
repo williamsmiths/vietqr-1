@@ -14,6 +14,9 @@ service VietQRService {
   
   // GetBankList lấy danh sách các ngân hàng hỗ trợ
   rpc GetBankList(GetBankListRequest) returns (GetBankListResponse);
+  
+  // HealthCheck kiểm tra trạng thái server
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
 // EncodeRequest chứa thông tin để tạo mã QR
@@ -61,5 +64,17 @@ message GetBankListResponse {
   repeated BankInfo banks = 1;
   bool success = 2;
   string error = 3;
+}
+
+// HealthCheckRequest yêu cầu kiểm tra sức khỏe server
+message HealthCheckRequest {}
+
+// HealthCheckResponse trả về trạng thái server
+message HealthCheckResponse {
+  bool healthy = 1;           // Server có khỏe mạnh không
+  string status = 2;          // Trạng thái: "ok", "error"
+  string message = 3;         // Thông báo chi tiết
+  int64 timestamp = 4;        // Unix timestamp
+  string version = 5;         // Phiên bản server
 }
 

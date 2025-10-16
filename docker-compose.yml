@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   vietqr-grpc:
-    image: ghcr.io/williamsmiths/vietqr-1:latest
-    container_name: vietqr-1:latest
+    image: ghcr.io/williamsmiths/vietqr-1:v1.0.4
+    container_name: vietqr-1
     ports:
       - "9090:9090"  # gRPC port
     environment:
@@ -20,4 +18,4 @@ services:
 networks:
   tiemco-network:
     name: tiemco-network
-    external: false 
+    external: true 
